@@ -63,6 +63,8 @@ static uint8_t ansbuf[10] = {0}; // Buffer for the answers.    // BETTER LOCALLY
 /************ Opitons **************************/
 #define DEV_TF            0X02
 
+
+
 struct Config {
   const String prefix = "";
   const String role = "c-gravel-lcd";
@@ -163,10 +165,9 @@ void callbackText(byte *payload, int length) {
 
 
 void callbackSound(byte *payload, int length) {
-
-  
- sendCommand(CMD_PLAY_W_INDEX, ((const char *)(payload),length));
-
+ std::string message((const char *)(payload),length);
+ int num = atoi(message.c_str());
+ sendCommand(CMD_PLAY_W_INDEX, num);
 }
 void setup() {
   Serial.swap();
